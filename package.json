@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "CLIENT ENDPOINTS: Register - Login - GET All Clients - GET Client by id - UPDATE Client - DELETE Client -",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Buil-Week-Anywhere-Fitness/Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Buil-Week-Anywhere-Fitness/Backend/issues"
+  },
+  "homepage": "https://github.com/Buil-Week-Anywhere-Fitness/Backend#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  }
+}
