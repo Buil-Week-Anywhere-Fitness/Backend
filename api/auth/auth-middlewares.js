@@ -1,4 +1,4 @@
-const { JWT_SECRET } = require("../secrets"); // use this secret!
+const { JWT_SECRET } = require("../secrets");
 const { findBy } = require("../models/clientsModel");
 const jwt = require("jsonwebtoken");
 
@@ -17,7 +17,7 @@ const restricted = (req, res, next) => {
   });
 };
 
- const only = (role_name) => (req, res, next) => {
+const only = (role_name) => (req, res, next) => {
   if (role_name === req.decodedToken.role_name) {
     next();
   } else {
@@ -52,7 +52,6 @@ const validateRoleName = (req, res, next) => {
     next();
   }
 };
-
 
 module.exports = {
   restricted,
