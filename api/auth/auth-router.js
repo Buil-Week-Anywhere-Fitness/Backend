@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../users/usersModel");
 
 const {
-  //   restricted,
-  //   only,
+  restricted,
+  only,
   checkUsernameExists,
   validateRoleName,
 } = require("./auth-middlewares");
@@ -72,18 +72,6 @@ function generateToken(user) {
   };
   return jwt.sign(payload, JWT_SECRET, options);
 }
-
-// function generateToken(user) {
-//   const payload = {
-//     subject: user.id,
-//     username: user.username,
-//   };
-//   const secret = "uhd87h3p333##R3r3r3r3r#R##R3r";
-//   const options = {
-//     expiresIn: "1d",
-//   };
-//   return jwt.sign(payload, secret, options); // this method is synchronous
-// }
 
 // eslint-disable-next-line
 router.use((err, req, res, next) => {
