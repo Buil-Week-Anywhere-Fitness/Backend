@@ -7,7 +7,7 @@ const { restricted, only } = require("../auth/auth-middlewares");
 router.get("/", restricted, (req, res, next) => {
   Users.find()
     .then((users) => {
-      res.json(users);
+      res.status(200).json(users);
     })
     .catch(next);
 });
