@@ -1,4 +1,3 @@
-const { findBy } = require("../users/usersModel");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../secrets/index");
 const Users = require("../users/usersModel")
@@ -18,8 +17,8 @@ const restricted = (req, res, next) => {
   });
 };
 
-const only = (role_name) => (req, res, next) => {
-  if (role_name === req.decodedToken.role_name) {
+const only = (role_id) => (req, res, next) => {
+  if (role_id === req.decodedToken.role_id) {
     next();
   } else {
     next({ status: 403, message: "This is not for you" });
