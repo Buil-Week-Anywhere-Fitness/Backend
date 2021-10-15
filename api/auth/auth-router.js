@@ -1,62 +1,14 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../users/usersModel");
+const Users = require("../users/usersModel");
 const { JWT_SECRET } = require("../secrets");
 const { checkUsernameExists, validateRoleName } = require("./auth-middlewares");
-
-router.post("/register", validateRoleName, (req, res, next) => {
-  const { username, password } = req.body;
-  const { role_name } = req;
-  const hash = bcrypt.hashSync(password, 8);
-  User.add({ username, password: hash, role_name })
-    .then((newUser) => {
-      res.status(201).json(newUser);
-    })
-    .catch(next);
-});
-
-router.post("/login", checkUsernameExists, (req, res) => {
-  let { username, password } = req.body;
-
-  User.findBy({ username })
-    .first()
-    .then((user) => {
-      if (user && bcrypt.compareSync(password, req.user.password)) {
-        const token = generateToken(user);
-
-        // the server needs to return the token to the client
-        res.status(200).json({
-          message: `Welcome ${req.user.username}!, have a token...`,
-          token, // token attached as part of the response
-        });
-      } else {
-        res.status(401).json({ message: "Invalid Credentials" });
-      }
-    })
-    .catch((error) => {
-      res.status(500).json(error);
-    });
-});
-
-router.get("/logout", (req, res, next) => {
-  if (req.session.user) {
-    req.session.destroy((err) => {
-      if (err) {
-        next(err);
-      } else {
-        res.status(200).json({ message: "logged out" });
-      }
-    });
-  } else {
-    res.status(200).json({ message: "no session" });
-  }
-});
 
 function generateToken(user) {
   const payload = {
     subject: user.user_id,
-    role_name: user.role_name,
+    role_id: user.role_id,
     username: user.username,
   };
   const options = {
@@ -64,6 +16,39 @@ function generateToken(user) {
   };
   return jwt.sign(payload, JWT_SECRET, options);
 }
+
+router.get("/", (req, res, next) => {
+  Users.get()
+    .then((users) => {
+      res.status(200).json(users);
+    })
+    .catch(next);
+});
+
+router.post("/register", (req, res, next) => {
+  const { name, username, email, password, role_id } = req.body;
+  const hash = bcrypt.hashSync(password, 8);
+  const user = { name, username, email, password: hash, role_id };
+  Users.add(user)
+    .then((newUser) => {
+      res.status(201).json(newUser);
+    })
+    .catch(next);
+});
+
+router.post("/login", checkUsernameExists, (req, res) => {
+  const { username, password } = req.body;
+
+  if (req.user && bcrypt.compareSync(password, req.user.password)) {
+    const token = generateToken(req.user);
+    res.status(200).json({
+      message: `Welcome back ${req.user.username}!`,
+      token,
+    });
+  } else {
+    next({ status: 401, message: "Invalid credentials" });
+  }
+});
 
 // eslint-disable-next-line
 router.use((err, req, res, next) => {

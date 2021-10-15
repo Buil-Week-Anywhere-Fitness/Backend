@@ -1,6 +1,6 @@
-const { findBy } = require("../users/usersModel");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../secrets/index");
+const Users = require("../users/usersModel")
 
 const restricted = (req, res, next) => {
   const token = req.headers.authorization;
@@ -17,8 +17,8 @@ const restricted = (req, res, next) => {
   });
 };
 
-const only = (role_name) => (req, res, next) => {
-  if (role_name === req.decodedToken.role_name) {
+const only = (role_id) => (req, res, next) => {
+  if (role_id === req.decodedToken.role_id) {
     next();
   } else {
     next({ status: 403, message: "This is not for you" });
@@ -27,7 +27,7 @@ const only = (role_name) => (req, res, next) => {
 
 const checkUsernameExists = async (req, res, next) => {
   try {
-    const [user] = await findBy({ username: req.body.username });
+    const [user] = await Users.findBy({ username: req.body.username });
     if (!user) {
       next({ status: 401, message: "Invalid credentials" });
     } else {
@@ -35,7 +35,7 @@ const checkUsernameExists = async (req, res, next) => {
       next();
     }
   } catch (err) {
-    next();
+    next(err);
   }
 };
 
