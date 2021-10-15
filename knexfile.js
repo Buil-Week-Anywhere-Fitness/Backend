@@ -1,22 +1,26 @@
-// Update with your config settings.
+const common = {
+  client: "sqlite3",
+  useNullAsDefault: true,
+  migrations: { directory: "./data/migrations" },
+  seeds: { directory: "./data/seeds" },
+  pool: {
+    afterCreate: (conn, done) => {
+      conn.run("PRAGMA foreogn_keys = ON", done);
+    },
+  },
+};
 
 module.exports = {
   development: {
-    client: "sqlite3",
-    migrations: {
-      directory: "./data/migrations",
-    },
-    seeds: {
-      directory: "./data/seeds",
-    },
+    ...common,
     connection: {
       filename: "./data/anywhere_fitness.db3",
     },
-    useNullAsDefault: true,
   },
-  pool: {
-    afterCreate: (conn, done) => {
-      conn.run("PRAGMA foreign_keys = ON", done);
+  testing: {
+    ...common,
+    connection: {
+      filename: "./data/test.db3",
     },
   },
 };
