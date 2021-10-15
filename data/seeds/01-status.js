@@ -1,9 +1,9 @@
-const status = [{ status_name: "instructor" }, { status_name: "client" }];
+const roles = [{ role_name: "instructor" }, { role_name: "client" }];
 
-exports.status = status;
+exports.roles = roles;
 
 exports.seed = function (knex) {
-  return knex("status").insert(status);
+  return knex("roles").insert(roles);
 };
 
 // exports.seed = async function (knex) {
