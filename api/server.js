@@ -17,7 +17,7 @@ server.use(morgan("dev"));
 server.use("/api/auth", authRouter);
 server.use("/api/classes", classesRouter);
 
-server.get("/", (req, res, next) => {
+server.get("/status", (req, res, next) => {
     res.status(200).json({message: "Welcome to Anywhere Fitness!", time: new Date().toLocaleTimeString()})
 })
 
