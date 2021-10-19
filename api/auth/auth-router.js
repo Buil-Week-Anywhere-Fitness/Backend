@@ -8,7 +8,7 @@ const { checkUsernameExists, validateRoleName } = require("./auth-middlewares");
 function generateToken(user) {
   const payload = {
     subject: user.user_id,
-    role_id: user.role_id,
+    role_name: user.role_name,
     username: user.username,
   };
   const options = {
@@ -41,7 +41,6 @@ router.post("/login", checkUsernameExists, (req, res) => {
 
   if (req.user && bcrypt.compareSync(password, req.user.password)) {
     const token = generateToken(req.user);
-    console.log(req.user, token)
     res.status(200).json({
       message: `Welcome back ${req.user.username}!`,
       token,

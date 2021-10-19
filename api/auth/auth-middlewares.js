@@ -17,9 +17,8 @@ const restricted = (req, res, next) => {
   });
 };
 
-const only = (role_id) => (req, res, next) => {
-  console.log(req.decodedToken)
-  if (role_id === req.decodedToken.role_id) {
+const only = (role_name) => (req, res, next) => {
+  if (role_name === req.decodedToken.role_name) {
     next();
   } else {
     next({ status: 403, message: "This is not for you" });
