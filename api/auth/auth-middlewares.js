@@ -18,6 +18,7 @@ const restricted = (req, res, next) => {
 };
 
 const only = (role_id) => (req, res, next) => {
+  console.log(req.decodedToken)
   if (role_id === req.decodedToken.role_id) {
     next();
   } else {

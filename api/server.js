@@ -17,6 +17,10 @@ server.use(morgan("dev"));
 server.use("/api/auth", authRouter);
 server.use("/api/classes", classesRouter);
 
+server.get("/status", (req, res, next) => {
+    res.status(200).json({message: "Welcome to Anywhere Fitness!", time: new Date().toLocaleTimeString()})
+})
+
 server.use(express.static(path.join(__dirname, "../client")));
 server.use(errorHandler); // error handler
 
