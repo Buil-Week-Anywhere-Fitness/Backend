@@ -1,16 +1,18 @@
-const Users = require("../users/usersModel");
+const Classes = require("./classes-model");
 
-function validateInstructorRole(user_id) {
-  Users.findBy(req.decodedToken.subject).then((user) => {
-    if (user.role_id === 1) {
-      next();
-    } else {
-      next({ status: 403, message: "This is for instructors only" });
-    }
-  });
+function validateClassId(req, res, next) {
+  Classes.getById(req.params.id)
+    .then((existingClass) => {
+      if (existingClass) {
+        req.existingClass = existingClass;
+        next();
+      } else {
+        next({ status: 404, message: `user not found` });
+      }
+    })
+    .catch(next);
 }
 
 module.exports = {
-  validateInstructorRole,
-  restricted
+  validateClassId,
 };

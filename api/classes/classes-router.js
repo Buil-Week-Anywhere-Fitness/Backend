@@ -1,12 +1,8 @@
 const router = require("express").Router();
 const Classes = require("./classes-model");
-const {
-  restricted,
-  only,
-  validateInstructorRole,
-} = require("../auth/auth-middlewares");
+const { restricted, only } = require("../auth/auth-middlewares");
+const { validateClassId } = require("./classes-middleware");
 
-// This endpoint is restricted to logged in users only
 router.get("/", restricted, only("instructor"), (req, res, next) => {
   Classes.getAll()
     .then((classes) => {
@@ -39,4 +35,19 @@ router.put("/:id", restricted, only("instructor"), (req, res, next) => {
     .catch(next);
 });
 
+router.delete(
+  "/:id",
+  restricted,
+  only("instructor"),
+  validateClassId,
+  (req, res, next) => {
+    const id = req.params.id;
+    deletedClass = req.existingClass;
+    Classes.remove(id)
+      .then((deletedClassCount) => {
+        res.status(200).json(deletedClass);
+      })
+      .catch(next);
+  }
+);
 module.exports = router;
