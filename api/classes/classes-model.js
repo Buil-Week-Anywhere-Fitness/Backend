@@ -13,8 +13,9 @@ async function add(newClass) {
   return getById(id);
 }
 
-function update(id, changes) {
-  return db("classes").where("class_id", id).update(changes);
+async function update(id, changes) {
+  await db("classes").where("class_id", id).update(changes);
+  return getById(id)
 }
 
 function remove(id) {

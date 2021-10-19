@@ -1,10 +1,13 @@
 const router = require("express").Router();
 const Classes = require("./classes-model");
-const { restricted, only, validateInstructorRole } = require("../auth/auth-middlewares");
+const {
+  restricted,
+  only,
+  validateInstructorRole,
+} = require("../auth/auth-middlewares");
 
-
-// This endpoint is restricted to logged in users only 
-router.get("/", restricted, only(1), (req, res, next) => {
+// This endpoint is restricted to logged in users only
+router.get("/", restricted, only("instructor"), (req, res, next) => {
   Classes.getAll()
     .then((classes) => {
       res.status(200).json(classes);
@@ -20,10 +23,18 @@ router.get("/:class_id", restricted, (req, res, next) => {
     .catch(next);
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", restricted, only("instructor"), (req, res, next) => {
   Classes.add(req.body)
     .then((newClass) => {
       res.status(201).json(newClass);
+    })
+    .catch(next);
+});
+
+router.put("/:id", restricted, only("instructor"), (req, res, next) => {
+  Classes.update(req.params.id, req.body)
+    .then((updatedClass) => {
+      res.status(200).json(updatedClass);
     })
     .catch(next);
 });
