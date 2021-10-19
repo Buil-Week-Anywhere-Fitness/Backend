@@ -4,7 +4,7 @@ const { restricted, only, validateInstructorRole } = require("../auth/auth-middl
 
 
 // This endpoint is restricted to logged in users only 
-router.get("/", restricted, (req, res, next) => {
+router.get("/", restricted, only(1), (req, res, next) => {
   Classes.getAll()
     .then((classes) => {
       res.status(200).json(classes);
