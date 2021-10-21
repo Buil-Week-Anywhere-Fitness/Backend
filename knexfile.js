@@ -1,10 +1,10 @@
 require("dotenv").config();
 
-const pg = require("pg");
+// const pg = require("pg");
 
-if (process.env.DATABASE_URL) {
-  pg.defaults.ssl = { rejectUnauthorized: false };
-}
+// if (process.env.DATABASE_URL) {
+//   pg.defaults.ssl = { rejectUnauthorized: false };
+// }
 
 const common = {
   migrations: { directory: "./data/migrations" },
@@ -40,8 +40,21 @@ module.exports = {
   },
   production: {
     ...common,
-    client: "pg",
-    connection: process.env.DATABASE_URL,
-    pool: { min: 2, max: 10 },
+    useNullAsDefault: true,
+    client: "sqlite3",
+    connection: {
+      filename: "./data/anywhere_fitness.db3",
+    },
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys = ON", done);
+      },
+    },
   },
+  // production: {
+  //   ...common,
+  //   client: "pg",
+  //   connection: process.env.DATABASE_URL,
+  //   pool: { min: 2, max: 10 },
+  // },
 };

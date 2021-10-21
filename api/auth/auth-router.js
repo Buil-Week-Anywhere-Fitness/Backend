@@ -18,6 +18,7 @@ function generateToken(user) {
 }
 
 router.get("/", (req, res, next) => {
+  console.log(process.env.DB_ENV)
   Users.get()
     .then((users) => {
       res.status(200).json(users);
