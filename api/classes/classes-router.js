@@ -50,4 +50,21 @@ router.delete(
       .catch(next);
   }
 );
+
+router.get("/client_classes", (req, res, next) => {
+  Classes.getClasses()
+    .then((classes) => {
+      res.status(200).json(classes);
+    })
+    .catch(next);
+});
+
+router.get("/:client_class_id", (req, res, next) => {
+  Classes.getClassesById(req.params.client_class_id)
+    .then((selectedClientClass) => {
+      res.status(200).json(selectedClientClass);
+    })
+    .catch(next);
+});
+
 module.exports = router;

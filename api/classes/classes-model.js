@@ -22,10 +22,21 @@ function remove(id) {
   return db("classes").where("class_id", id).del();
 }
 
+//Client Model
+function getClasses() {
+  return db("client_classes");
+}
+
+function getClassesById(client_id) {
+  return db("client_classes").where("client_class_id", client_id).first();
+}
+
 module.exports = {
   getAll,
   getById,
   add,
   update,
   remove,
+  getClasses,
+  getClassesById,
 };

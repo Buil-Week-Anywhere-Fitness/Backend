@@ -7,10 +7,7 @@ function get() {
     .select("user_id", "username", "role_name");
 }
 async function findAll() {
-  return db
-    .select("u.id", "u.username", "u.phone_number")
-    .from("users as u")
-    .orderBy("u.id");
+  return db("users").select("users.username").from("users");
 }
 
 function findBy(filter) {
@@ -36,7 +33,6 @@ async function update(id, changes) {
     .where({ id })
     .update({
       username: changes.username,
-      phone_number: changes.phone_number,
       password: changes.password,
     })
     .returning("id");
