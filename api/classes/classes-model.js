@@ -8,14 +8,13 @@ function getById(id) {
   return db("classes").where("class_id", id).first();
 }
 
-async function add(newClass) {
-  const [id] = await db("classes").insert(newClass);
-  return getById(id);
+function add(newClass) {
+  return db("classes").insert(newClass);
 }
 
 async function update(id, changes) {
   await db("classes").where("class_id", id).update(changes);
-  return getById(id)
+  return getById(id);
 }
 
 function remove(id) {
