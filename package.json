@@ -12,6 +12,7 @@
     "latest": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
+    "cleanup": "knex seed:run --specific=00-cleanup.js",
     "resetdb": "knex migrate:rollback && knex migrate:latest && knex seed:run"
   },
   "repository": {

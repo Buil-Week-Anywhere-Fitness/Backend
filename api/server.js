@@ -4,10 +4,10 @@ const express = require("express");
 const server = express();
 const cors = require("cors");
 const morgan = require("morgan");
-const errorHandler = require("./errorHandler");
+const errorHandler = require("./error-handler");
 const authRouter = require("./auth/auth-router");
 const classesRouter = require("./classes/classes-router");
-const clientsRouter = require("../client/classesRouter");
+const usersRouter = require("./users/users-router");
 
 server.use(cors());
 server.use(express.json());
@@ -15,7 +15,7 @@ server.use(morgan("dev"));
 
 server.use("/api/auth", authRouter);
 server.use("/api/classes", classesRouter);
-server.use("/api/client_classes", clientsRouter);
+server.use("/api/users", usersRouter);
 
 server.get("/status", (req, res, next) => {
   res.status(200).json({
