@@ -68,3 +68,5 @@ exports.down = function (knex) {
     .dropTableIfExists("users")
     .dropTableIfExists("roles");
 };
+
+// comment
