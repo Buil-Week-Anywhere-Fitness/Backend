@@ -29,19 +29,19 @@ describe("server", () => {
 
   describe("[POST] /api/auth/login", () => {
     test("[error] - responds with the correct message on valid credentials", async () => {
-      // const res = await request(server)
-      //   .post("/api/auth/login")
-      //   .send({ username: "stan", password: "1234" });
-      // expect(res.body.message).toMatch(/welcome stan/i);
+      const res = await request(server)
+        .post("/api/auth/login")
+        .send({ username: "stan", password: "1234" });
+      expect(res.body.message).toMatch(/welcome stan/i);
     }, 750);
   });
 
   describe("[POST] /api/users", () => {
     test("[error] responds with a new user", async () => {
-      // const newUser = { name: "foo", bio: "bar" };
-      // const res = await request(server).post("/api/users").send(newUser);
-      // expect(res.body).toHaveProperty("id");
-      // expect(res.body).toMatchObject(newUser);
+      const newUser = { name: "foo", bio: "bar" };
+      const res = await request(server).post("/api/users").send(newUser);
+      expect(res.body).toHaveProperty("id");
+      expect(res.body).toMatchObject(newUser);
     }, 750);
   });
 });
