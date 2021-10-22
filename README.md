@@ -65,3 +65,6 @@ The _Database Schemas_ for the `roles`, `users`, `classes`, `client_classes` res
 | POST     | /api/classes     | Returns an object with the new class and its details               |
 | PUT      | /api/classes/:id | Returns an object with the updated class and details               |
 | DELETE   | /api/classes     | Removes the class with specific class_id and returns deleted class |
+
+
+Thanks for reading :) 
