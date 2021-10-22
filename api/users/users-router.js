@@ -42,19 +42,19 @@ router.post("/", async (req, res, next) => {
 });
 
 // Delete User
-// router.delete("/:id", restricted, async (req, res, next) => {
-//   const id = parseInt(req.params.id);
-//   if (!id) {
-//     next({ apiCode: 404, apiMessage: "User Not Found." });
-//   }
+router.delete("/:id", restricted, async (req, res, next) => {
+  const id = parseInt(req.params.id);
+  if (!id) {
+    next({ apiCode: 404, apiMessage: "User Not Found." });
+  }
 
-//   try {
-//     const user = await Users.remove(id, {});
-//     res.json({ message: `User with id ${req.params.id} has been deleted` });
-//   } catch (err) {
-//     next({ apiCode: 500, apiMessage: "Error Deleting User.", ...err });
-//   }
-// });
+  try {
+    const user = await Users.remove(id, {});
+    res.json({ message: `User with id ${req.params.id} has been deleted` });
+  } catch (err) {
+    next({ apiCode: 500, apiMessage: "Error Deleting User.", ...err });
+  }
+});
 
 // Update User
 router.put("/:id", requireBody, restricted, async (req, res, next) => {

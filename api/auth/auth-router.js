@@ -16,7 +16,6 @@ function generateToken(user) {
   };
   return jwt.sign(payload, JWT_SECRET, options);
 }
-
 router.get("/", (req, res, next) => {
   Users.get()
     .then((users) => {
@@ -36,7 +35,7 @@ router.post("/register", (req, res, next) => {
     .catch(next);
 });
 
-router.post("/login", checkUsernameExists, (req, res) => {
+router.post("/login", checkUsernameExists, validateRoleName, (req, res) => {
   const { username, password } = req.body;
 
   if (req.user && bcrypt.compareSync(password, req.user.password)) {

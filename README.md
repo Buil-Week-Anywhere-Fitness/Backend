@@ -38,11 +38,6 @@ The _Database Schemas_ for the `roles`, `users`, `classes`, `client_classes` res
 | user_id            | unsigned integer | required, must be the `id` of an existing user      |
 
 #### Client_classes
-REGISTER A NEW USER POST: https://fitness-anywhere-bw-ls.herokuapp.com/api/auth/register
-LOGIN A USER POST: https://fitness-anywhere-bw-ls.herokuapp.com/api/auth/login
-GET ALL USERS GET: https://fitness-anywhere-bw-ls.herokuapp.com/api/users
-UPDATE USER PUT: https://fitness-anywhere-bw-ls.herokuapp.com/api/users/:id
-DELETE USER DEL: https://fitness-anywhere-bw-ls.herokuapp.com/api/users/:id
 
 | field           | data type        | metadata                                            |
 | --------------- | ---------------- | --------------------------------------------------- |
@@ -54,6 +49,12 @@ DELETE USER DEL: https://fitness-anywhere-bw-ls.herokuapp.com/api/users/:id
 
 ### Authentication endpoints
 
+REGISTER A NEW USER POST: https://fitness-anywhere-bw-ls.herokuapp.com/api/auth/register
+LOGIN A USER POST: https://fitness-anywhere-bw-ls.herokuapp.com/api/auth/login
+GET ALL USERS GET: https://fitness-anywhere-bw-ls.herokuapp.com/api/users
+UPDATE USER PUT: https://fitness-anywhere-bw-ls.herokuapp.com/api/users/:id
+DELETE USER DEL: https://fitness-anywhere-bw-ls.herokuapp.com/api/users/:id
+
 | Method | URL                | Description                                                                                                               |
 | ------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------- |
 | GET    | /api/auth          | Returns an array users.                                                                                                   |
@@ -61,6 +62,7 @@ DELETE USER DEL: https://fitness-anywhere-bw-ls.herokuapp.com/api/users/:id
 | POST   | /api/auth/login    | Checks { username, password } in the `request body`, responds with a welcome message and token.                           |
 
 ### Workout class endpoints
+
 ADD A NEW CLASS POST: https://fitness-anywhere-bw-ls.herokuapp.com/api/
 GET ALL CLASSES GET: https://fitness-anywhere-bw-ls.herokuapp.com/api/
 GET CLASS BY ID GET: https://fitness-anywhere-bw-ls.herokuapp.com/api/classes/:id
