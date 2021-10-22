@@ -21,10 +21,10 @@ function findById(user_id) {
     .first();
 }
 
-function add(user) {
+async function add(user) {
   // const [id] = await db("users").insert(user);
   // return findById(id);
-  db("users").insert(user)
+  await db("users").insert(user)
   return "Done"
 }
 
