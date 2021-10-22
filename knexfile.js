@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const pg = require("pg");
 
 if (process.env.DATABASE_URL) {
@@ -38,6 +36,19 @@ module.exports = {
       },
     },
   },
+  // production: {
+  //   ...common,
+  //   useNullAsDefault: true,
+  //   client: "sqlite3",
+  //   connection: {
+  //     filename: "./data/anywhere_fitness.db3",
+  //   },
+  //   pool: {
+  //     afterCreate: (conn, done) => {
+  //       conn.run("PRAGMA foreign_keys = ON", done);
+  //     },
+  //   },
+  // },
   production: {
     ...common,
     client: "pg",

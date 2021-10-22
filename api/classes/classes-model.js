@@ -9,13 +9,13 @@ function getById(id) {
 }
 
 async function add(newClass) {
-  const [id] = await db("classes").insert(newClass);
-  return getById(id);
+  await db("classes").insert(newClass);
+  return "Done"
 }
 
 async function update(id, changes) {
   await db("classes").where("class_id", id).update(changes);
-  return getById(id)
+  return getById(id);
 }
 
 function remove(id) {
