@@ -19,7 +19,7 @@ router.get("/:class_id", restricted, (req, res, next) => {
     .catch(next);
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", restricted, only("instructor"), (req, res, next) => {
   Classes.add(req.body)
     .then((newClass) => {
       res.status(201).json(newClass);
